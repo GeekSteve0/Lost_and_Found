@@ -37,12 +37,12 @@
         <div class="max-w-container mx-auto px-5 w-full">
             <div class="flex justify-between items-center">
                 <div class="flex gap-[50px]">
-                    <a href="{% url 'lost_persons' %}" class="text-primary hover:opacity-80">Lost Persons</a>
-                    <a href="{% url 'found_persons' %}" class="text-primary hover:opacity-80">Found Persons</a>
+                    <a href="{% url 'lost_persons_logged_in' %}" class="text-primary hover:opacity-80">Lost Persons</a>
+                    <a href="{% url 'found_persons_logged_in' %}" class="text-primary hover:opacity-80">Found Persons</a>
                 </div>
                 <div class="flex items-center gap-4">
                     <a href="{% url 'user_profile' %}" class="text-primary hover:opacity-80">
-                        <img src="{% static 'images/avatar.png' %}" alt="User Avatar" class="w-10 h-10 rounded-full">
+                        <img src="{% static 'playground/images/avatar.png' %}" alt="User Avatar" class="w-10 h-10 rounded-full">
                     </a>
                     <a href="{% url 'logout' %}" class="bg-accent text-white py-2 px-4 rounded-lg">Log Out</a>
                 </div>
@@ -51,7 +51,7 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="lost-hero-section bg-cover bg-center" style="background-image: url('./images/forest.png');">
+    <section class="lost-hero-section bg-cover bg-center" style="background-image: url('https://t4.ftcdn.net/jpg/00/58/45/63/360_F_58456380_SPF3r3PB4Bopt5SLe3GbBRpbTSoXaEit.jpg');">
         <div class="max-w-container mx-auto px-5 pt-16 pb-32">
             <div class="glass">
                 <h1 class="text-5xl font-bold mb-6 text-primary">Lost Persons</h1>

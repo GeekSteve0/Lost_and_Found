@@ -48,30 +48,40 @@
         {% if messages %}
             <ul class="mb-4">
                 {% for message in messages %}
-                    <li class="text-red-500 text-center">{{ message }}</li>
+                    <li class="text-red-500">{{ message }}</li>
                 {% endfor %}
             </ul>
         {% endif %}
-        <form method="post">
+        <form method="POST">
             {% csrf_token %}
             <div class="mb-4">
-                <label for="email" class="block text-gray-700">Email</label>
-                {{ form.email|as_widget:attrs }}
-                {% if form.email.errors %}
-                    <span class="text-red-500">{{ form.email.errors.0 }}</span>
-                {% endif %}
+                <label class="block mb-2">Email:</label>
+                {{ form.username }}
             </div>
-            <div class="mb-4">
-                <label for="password" class="block text-gray-700">Password</label>
-                {{ form.password|as_widget:attrs }}
-                {% if form.password.errors %}
-                    <span class="text-red-500">{{ form.password.errors.0 }}</span>
-                {% endif %}
+            <div class="mb-6">
+                <label class="block mb-2">Password:</label>
+                <div class="relative">
+                    {{ form.password }}
+                    <button type="button" onclick="togglePassword()" class="absolute right-2 top-1/2 transform -translate-y-1/2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
+                    </button>
+                </div>
             </div>
-            <button type="submit" class="bg-accent text-white py-2 px-4 rounded-lg w-full">Login</button>
-            <p class="text-center mt-4"><a href="#" class="text-orange-500">Forgot Password?</a></p>
+            <button type="submit" class="w-full bg-primary text-white py-2 rounded hover:bg-accent">Login</button>
+            <script>
+                function togglePassword() {
+                    const password = document.querySelector('input[type="password"]');
+                    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                    password.setAttribute('type', type);
+                }
+            </script>
         </form>
-        <p class="text-center mt-4">Don't have an account? <a href="{% url 'signup' %}" class="text-[#0000FF]">Sign up</a></p>
+        <p class="mt-4 text-center">
+            Don't have an account? <a href="{% url 'signup' %}" class="text-primary hover:text-accent">Sign up</a>
+        </p>
     </div>
 </body>
 </html>
