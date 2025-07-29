@@ -88,7 +88,44 @@
         .submit-button:hover {
             background-image: linear-gradient(to right, #FC7F15, #924CEE); /* Gradient from left to right */
         }
+        .error-message {
+            color: #dc3545;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+        #imagePreview {
+            border: 2px dashed #ccc;
+            padding: 10px;
+            margin-top: 10px;
+            text-align: center;
+        }
     </style>
+    <script>
+        function previewImage(input) {
+            const preview = document.getElementById('preview');
+            const previewDiv = document.getElementById('imagePreview');
+            
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                // Check file size (5MB max)
+                if (file.size > 5 * 1024 * 1024) {
+                    alert('File size must be less than 5MB');
+                    input.value = '';
+                    previewDiv.style.display = 'none';
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    previewDiv.style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            } else {
+                previewDiv.style.display = 'none';
+            }
+        }
+    </script>
 </head>
 <body>
     <!-- Navigation -->
@@ -115,10 +152,11 @@
             <h1>Report Found Person</h1>
         </div>
         <p class="warning">⚠️ Please ensure that you have reported to the police and obtained an O.B number</p>
-        <form>
+        <form method="POST" action="{% url 'report_found_person' %}" enctype="multipart/form-data">
+            {% csrf_token %}
             <div class="form-group">
                 <label for="fullName">Full Name (Where Provided)</label>
-                <input type="text" id="fullName" name="fullName">
+                <input type="text" id="fullName" name="fullName" maxlength="100">
             </div>
             <div class="form-group">
                 <label for="lastSeenLocation">Location Found</label>
@@ -148,8 +186,12 @@
                 <input type="text" id="disabilityDetails" name="disabilityDetails">
             </div>
             <div class="form-group">
-                <label for="imageUpload">Upload an image with their face</label>
-                <input type="file" id="imageUpload" name="imageUpload" accept="image/*" required>
+                <label for="imageUpload">Upload a clear face image (JPEG, PNG only, max 5MB)</label>
+                <input type="file" id="imageUpload" name="imageUpload" accept=".jpg,.jpeg,.png" required onchange="previewImage(this)">
+                <div id="imagePreview" class="mt-2" style="display: none;">
+                    <img id="preview" src="#" alt="Image preview" style="max-width: 200px; max-height: 200px;">
+                </div>
+                <small class="text-gray-500">Please ensure the face is clearly visible in the photo.</small>
             </div>
             <button type="submit" class="submit-button">Submit Found Person Report</button>
         </form>

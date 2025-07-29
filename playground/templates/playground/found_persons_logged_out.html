@@ -62,7 +62,9 @@
     <!-- CTA Section -->
     <section class="lost-cta-section text-center py-16">
         <p class="cta-text">Have you found someone you believe is lost? Please report to the nearest police station and also file a report with us below so we can help find them.</p><br>
-        <a href="{% url 'report_found_person' %}" class="lost-check-button bg-accent text-white py-3 px-6 rounded-lg block text-center mx-auto max-w-md">Check their face using facial recognition</a>
+        <a href="{% url 'login' %}?next={% url 'report_found_person' %}" class="lost-check-button bg-accent text-white py-3 px-6 rounded-lg block text-center mx-auto max-w-md hover:bg-accent/90 transition-all">
+            Please login to report a found person
+        </a>
     </section>
 
     <!-- Found Person Cards Section -->
