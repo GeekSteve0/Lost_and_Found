@@ -1,0 +1,155 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile | Find The Missing</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#784FB1',
+                        accent: '#FC7F15',
+                        grey: '#F0F0F0',
+                    },
+                    maxWidth: {
+                        'container': '1296px'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #DEF6FB; /* Light blue background */
+            margin: 0; /* Remove default margin */
+            font-family: Arial, sans-serif; /* Font style */
+        }
+        .hero-section {
+            background-image: url('./images/forest.png'); /* Hero image */
+            background-size: cover;
+            background-position: center;
+            height: 300px; /* Adjust height as needed */
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            position: relative; /* Ensure positioning for the profile image */
+        }
+        .profile-image {
+            width: 170px;
+            height: 170px;
+            border-radius: 50%;
+            border: 5px solid #FC7F15; /* Border color */
+            position: absolute; /* Position the image absolutely */
+            bottom: -75px; /* Overlap the hero section */
+            left: 50%; /* Center the image */
+            transform: translateX(-50%); /* Adjust for centering */
+            z-index: 2; /* Ensure the image is above the hero section */
+        }
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            width: 200px; /* Increased size for better visibility */
+            height: 200px; /* Increased size for better visibility */
+            border-radius: 50%;
+            background-color: #DEF6FB; /* Matching the body background */
+            bottom: -100px; /* Adjusted to align with the profile image */
+            left: 50%; /* Center the cut-out */
+            transform: translateX(-50%); /* Adjust for centering */
+            z-index: 1; /* Behind the profile image */
+        }
+        .profile-container {
+            text-align: center;
+            padding: 50px 20px;
+            margin-top: 100px; /* Adjust to pull content down */
+        }
+        .active-cases {
+            margin-top: 30px;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto; /* Center the table */
+            border-collapse: collapse;
+            background-color: #ffffff; /* White background for the table */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Shadow effect */
+        }
+        .active-cases th, .active-cases td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+        .active-cases th {
+            background-color: #A7D3E0; /* Light blue background for header */
+        }
+        .status-pending {
+            color: red;
+            font-weight: bold;
+        }
+        .status-resolved {
+            color: green;
+            font-weight: bold;
+        }
+        h1, h2 {
+            color: #6A5ACD; /* Purple color */
+        }
+        .active-cases-title {
+            margin-top: 20px; /* Adjust as needed */
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="bg-white/80 h-[100px] flex items-center sticky top-0 z-50 backdrop-blur-sm w-full">
+        <div class="max-w-container mx-auto px-5 w-full">
+            <div class="flex justify-between items-center">
+                <div class="flex gap-[50px]">
+                    <a href="{% url 'lost_persons_logged_in' %}" class="text-primary hover:opacity-80">Lost Persons</a>
+                    <a href="{% url 'found_persons_logged_in' %}" class="text-primary hover:opacity-80">Found Persons</a>
+                </div>
+                <div class="flex items-center gap-4">
+                    <a href="{% url 'user_profile' %}" class="text-primary hover:opacity-80">
+                        <img src="{% static 'images/avatar.png' %}" alt="User Avatar" class="w-10 h-10 rounded-full">
+                    </a>
+                    <a href="{% url 'index' %}" class="bg-accent text-white py-2 px-4 rounded-lg">Log Out</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <img src="{% static 'images/avatar.png' %}" alt="User Avatar" class="profile-image" style="bottom: -85px;">
+    </div>
+
+    <!-- User Profile Section -->
+    <div class="profile-container" style="background-color: #bdf4ff; padding: 20px; margin-top: 55px;">
+        <h1 style="margin-top: 40px;"><strong>Alex Mumanyi</strong></h1>
+        <h4 style="margin-top: 60px;">My Active Cases</h4>
+
+        <table class="active-cases">
+            <thead>
+                <tr>
+                    <th>Case Type</th>
+                    <th>Name of Person</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Lost Person</td>
+                    <td>Baraka Mvule Mwai</td>
+                    <td class="status-pending">Pending</td>
+                </tr>
+                <tr>
+                    <td>Found Person</td>
+                    <td>Annelisa Njeri Kamau</td>
+                    <td class="status-resolved">Resolved</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

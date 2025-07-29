@@ -1,0 +1,125 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Found Person Profile | Find The Missing</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#784FB1',
+                        accent: '#FC7F15',
+                        grey: '#F0F0F0', // Added grey color for background
+                    },
+                    maxWidth: {
+                        'container': '1296px'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #DEF6FB;
+            margin: 0; /* Remove default margin */
+        }
+        .profile-container {
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px; /* Increased width for the profile */
+            position: relative;
+            margin: 100px auto; /* Center the form with margin */
+        }
+        .header {
+            background: #A7D3E0; /* Light blue background */
+            padding: 20px;
+            border-radius: 10px 10px 0 0;
+            text-align: center;
+            width: 100%; /* Full width for header */
+            margin-bottom: 20px; /* Space below the header */
+        }
+        .header h1 {
+            color: #6A5ACD; /* Purple color */
+            font-size: 24px;
+            margin: 0;
+        }
+        .profile-content {
+            display: flex; /* Flexbox for layout */
+            align-items: center; /* Center items vertically */
+        }
+        .profile-image {
+            border-radius: 50%;
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            margin-right: 20px; /* Space between image and text */
+            flex-shrink: 0; /* Prevent shrinking */
+        }
+        .profile-details {
+            background: #F0F0F0; /* Greyish background */
+            border-radius: 10px;
+            padding: 20px;
+            flex-grow: 1; /* Allow text area to grow */
+            display: flex;
+            flex-direction: column; /* Stack items vertically */
+            justify-content: space-between; /* Space between items */
+            max-height: 250px; /* Set a maximum height */
+            overflow-y: auto; /* Allow scrolling if content overflows */
+        }
+        .profile-details p {
+            margin: 5px 0;
+            display: flex;
+            align-items: center; /* Center items vertically */
+        }
+        .profile-details p img {
+            margin-right: 10px; /* Space between icon and text */
+            width: 20px; /* Icon size */
+            height: 20px; /* Icon size */
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="bg-white/80 h-[100px] flex items-center sticky top-0 z-50 backdrop-blur-sm w-full">
+        <div class="max-w-container mx-auto px-5 w-full">
+            <div class="flex justify-between items-center">
+                <div class="flex gap-[50px]">
+                    <a href="{% url 'lost_persons' %}" class="text-primary hover:opacity-80">Lost Persons</a>
+                    <a href="{% url 'found_persons' %}" class="text-primary hover:opacity-80">Found Persons</a>
+                </div>
+                <div class="flex items-center gap-4">
+                    <a href="{% url 'user_profile' %}" class="text-primary hover:opacity-80">
+                        <img src="{% static 'images/avatar.png' %}" alt="User Avatar" class="w-10 h-10 rounded-full">
+                    </a>
+                    <a href="{% url 'logout' %}" class="bg-accent text-white py-2 px-4 rounded-lg">Log Out</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Profile Section -->
+    <div class="profile-container">
+        <div class="header">
+            <h1>Found Person Profile</h1>
+        </div>
+        <div class="profile-content">
+            <img src="{% static 'images/avatar.png' %}" alt="Found Person" class="profile-image">
+            <div class="profile-details">
+                <p><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KCTxwYXRoIGZpbGw9IiNGQzdGMTUiIGQ9Ik0xMiAxMnEtMS42NSAwLTIuODI1LTEuMTc1VDggOHQxLjE3NS0yLjgyNVQxMiA0dDIuODI1IDEuMTc1VDE2IDh0LTEuMTc1IDIuODI1VDEyIDEybS04IDh2LTIuOHEwLS44NS40MzgtMS41NjJUNS42IDE0LjU1cTEuNTUtLjc3NSAzLjE1LTEuMTYyVDEyIDEzdDMuMjUuMzg4dDMuMTUgMS4xNjJxLjcyNS4zNzUgMS4xNjMgMS4wODhUMjAgMTcuMlYyMHoiIC8+Cjwvc3ZnPg==" alt="Name Icon"> <strong>Full Name:</strong> Baraka Mvule Mwai</p>
+                <p><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KCTxwYXRoIGZpbGw9IiNGQzdGMTUiIGQ9Ik0xMiAxMnEuODI1IDAgMS40MTMtLjU4N1QxNCAxMHQtLjU4Ny0xLjQxMlQxMiA4dC0xLjQxMi41ODhUMTAgMTB0LjU4OCAxLjQxM1QxMiAxMm0wIDEwcS00LjAyNS0zLjQyNS02LjAxMi02LjM2MlQ0IDEwLjJxMC0zLjc1IDIuNDEzLTUuOTc1VDEyIDJ0NS41ODggMi4yMjVUMjAgMTAuMnEwIDIuNS0xLjk4NyA1LjQzOFQxMiAyMiIgLz4KPC9zdmc+" alt="Location Icon"> <strong>Last Seen Location:</strong> Kamulu</p>
+                <p><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgdmlld0JveD0iMCAwIDUwIDUwIj4KCTxwYXRoIGZpbGw9IiNGQzdGMTUiIGQ9Ik0yOC41ODEgMjAuNTQ0YzAgMy4zNjktMi43ODkgMy4zNjktNC4yOTIgMy4zNjloLTEuODc0di02LjM2OWgyLjM1NWMxLjMxNyAwIDMuODExIDAgMy44MTEgM20xNC4zOTYtMy4zNjNjLjI3OC0zLjQyOCAxLjI3MS02LjU3NCAzLjAyMy05LjQ1OEwzOS4yODEgMWMtMi4xMjMgMS44MjgtNC41MzkgMi44NC03LjI3OSAzLjAxOWExMi41MyAxMi41MyAwIDAgMS03LjEyNy0xLjQzNGMtMi4zMDEgMS4xNDYtNC42NzEgMS42MjUtNy4xNDIgMS40MzRjLTIuNTU2LS4yMjktNC44NjItMS4xMzUtNi45MjgtMi43NDFsLTYuNzM4IDYuNzJxMi40ODcgNC4zODggMi43NjIgOS4xODNjLjA4NiAxLjQ3Mi0uMzM0IDMuNDk4LTEuMjc2IDYuMTE3Yy0uNDkzIDEuNDUyLS44NjYgMi43MTItMS4xMiAzLjc2NGMtLjIzNSAxLjA0NS0uMzgyIDEuODk1LS40MzEgMi41MzFjLS4wMzUgMi43OTEuNzQ4IDUuMzExIDIuMzUzIDcuNTVjMS4yNTQgMS42MzUgMy4zMjIgMy40NCA2LjE5NCA1LjQxNWMzLjE0MiAxLjYgNS41NzQgMi42MzkgNy4yNzcgMy4wODFsMS40MTIuNjU2Yy40NDQuMjE0LjkyLjQyMSAxLjQxNy42NDdjMS4wNzEuNjQyIDEuODI0IDEuMzM5IDIuMjIgMi4wNTdjLjQ4Ni0uNzc3IDEuMjU1LTEuNDU2IDIuMjc3LTIuMDU3YTQ2IDQ2IDAgMCAwIDEuODIzLS44MjhjLjQ5LS4yMTUuODU1LS4zNzcgMS4wNjctLjQ3NmExOSAxOSAwIDAgMSAxLjQxNy0uNjE1Yy41ODMtLjIyOSAxLjMwMi0uNTEgMi4xNjEtLjgyYzEuNjYtLjU4OSAyLjg2OC0xLjE0NCAzLjYzNi0xLjY0NmMyLjc4NS0xLjk3NSA0LjgyMS0zLjc1IDYuMTE3LTUuMzM5YzEuNjYyLTIuMjQ5IDIuNDY5LTQuNzggMi40MzItNy42MjZjLS4wOTgtMS4yNzQtLjYzNy0zLjMxMy0xLjYxNi02LjA5MWMtLjkzNC0yLjcwNC0xLjM0OC00LjgwNC0xLjIxMi02LjMybS0xMi4zNSA5LjIxYy0xLjU5NSAxLjA0NC0zLjc4OCAxLjA0NC00LjkzMyAxLjA0NGgtMy4xNDV2OC42MDZIMTcuODJWMTMuOTY1aDYuNzEzYzMuMTIgMCA1LjcyOS4yMDEgNy41NDEgMi40MWMxLjEzMSAxLjQwNiAxLjMyMiAzLjAwMyAxLjMyMiA0LjEzOGMtLjAwMiAyLjU3MS0xLjA2MSA0Ljc0MS0yLjc2OSA1Ljg3OCIgLz4KPC9zdmc+" alt="Police Icon"> <strong>Police Station Reported:</strong> Kamulu Police Station</p>
+                <p><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KCTxwYXRoIGZpbGw9IiNGQzdGMTUiIGQ9Ik0xOCAyMmEyIDIgMCAwIDAgMi0yVjhsLTYtNkg2YTIgMiAwIDAgMC0yIDJ2MTZhMiAyIDAgMCAwIDIgMnpNMTMgNGw1IDVoLTV6TTcgOGgzdjJIN3ptMCA0aDEwdjJIN3ptMCA0aDEwdjJIN3oiIC8+Cjwvc3ZnPg==" alt="OB Number Icon"> <strong>Police O.B Number:</strong> 2452/948/98</p>
+                <p><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KCTxwYXRoIGZpbGw9IiNGQzdGMTUiIGQ9Ik0yIDIxcS0uODI1IDAtMS40MTItLjU4N1QwIDE5VjVxMC0uODI1LjU4OC0xLjQxMlQyIDNoMjBxLjgyNSAwIDEuNDEzLjU4OFQyNCA1djE0cTAgLjgyNS0uNTg3IDEuNDEzVDIyIDIxem03LTdxMS4yNSAwIDIuMTI1LS44NzVUMTIgMTF0LS44NzUtMi4xMjVUOSA4dC0yLjEyNS44NzVUNiAxMXQuODc1IDIuMTI1VDkgMTRtLTYuOSA1aDEzLjhxLTEuMDUtMS44NzUtMi45LTIuOTM3VDkgMTV0LTQgMS4wNjNUMi4xIDE5bTE1LjQtN3EwLS41MjUuMS0xLjAxMnQuMjUtLjk4OEgxOXEuMjUgMCAuNDUtLjF0LjM1LS4zbC42NzUtLjlxLjIyNS0uMy4yLS42NzV0LS4zLS42NWwtLjctLjdRMTkuNCA2LjQgMTkgNi4zODd0LS43LjI2M3EtMS4wNzUgMS0xLjY4NyAyLjQzOFQxNiAxMnQuNjEzIDIuOTEzVDE4LjMgMTcuMzVxLjMuMjc1LjcuMjYzdC42NzUtLjI4OGwuNy0uN3EuMjc1LS4yNzUuMy0uNjV0LS4yLS42NzVsLS42NzUtLjlxLS4xNS0uMi0uMzUtLjNUMTkgMTRoLTEuMTVxLS4xNS0uNDUtLjI1LS45NjNUMTcuNSAxMiIgLz4KPC9zdmc+" alt="Contact Icon"> <strong>Relatives' Contact:</strong> 0711223344</p>
+                <p><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KCTxwYXRoIGZpbGw9IiNGQzdGMTUiIGQ9Ik03Ljc1IDIuNWEuNzUuNzUgMCAwIDAtMS41IDB2MS41OGMtMS40NC4xMTUtMi4zODQuMzk3LTMuMDc4IDEuMDkyYy0uNjk1LjY5NC0uOTc3IDEuNjM5LTEuMDkzIDMuMDc4aDE5Ljg0MmMtLjExNi0xLjQ0LS4zOTgtMi4zODQtMS4wOTMtMy4wNzhjLS42OTQtLjY5NS0xLjYzOS0uOTc3LTMuMDc4LTEuMDkzVjIuNWEuNzUuNzUgMCAwIDAtMS41IDB2MS41MTNDMTUuNTg1IDQgMTQuODM5IDQgMTQgNGgtNGMtLjgzOSAwLTEuNTg1IDAtMi4yNS4wMTN6IiAvPgoJPHBhdGggZmlsbD0iI0ZDN0YxNSIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMjIgMTJjMC0uODM5IDAtMS41ODUtLjAxMy0yLjI1SDIuMDEzQzIgMTAuNDE1IDIgMTEuMTYxIDIgMTJ2MmMwIDMuNzcxIDAgNS42NTcgMS4xNzIgNi44MjhTNi4yMjkgMjIgMTAgMjJoNGMzLjc3MSAwIDUuNjU3IDAgNi44MjgtMS4xNzJTMjIgMTcuNzcxIDIyIDE0em0tOCAuMjVBMS43NSAxLjc1IDAgMCAwIDEyLjI1IDE0djJhMS43NSAxLjc1IDAgMSAwIDMuNSAwdi0yQTEuNzUgMS43NSAwIDAgMCAxNCAxMi4yNW0wIDEuNWEuMjUuMjUgMCAwIDAtLjI1LjI1djJhLjI1LjI1IDAgMSAwIC41IDB2LTJhLjI1LjI1IDAgMCAwLS4yNS0uMjVtLTMuMjEzLTEuNDQzYS43NS43NSAwIDAgMSAuNDYzLjY5M3Y0YS43NS43NSAwIDAgMS0xLjUgMHYtMi4xOWwtLjIyLjIyYS43NS43NSAwIDAgMS0xLjA2LTEuMDZsMS41LTEuNWEuNzUuNzUgMCAwIDEgLjgxNy0uMTYzIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIC8+Cjwvc3ZnPg==" alt="Date Icon"> <strong>Date Found:</strong> 3/11/2024</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

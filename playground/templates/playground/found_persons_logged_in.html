@@ -1,0 +1,151 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Found Persons | Find The Missing</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#784FB1',
+                        accent: '#FC7F15',
+                    },
+                    maxWidth: {
+                        'container': '1296px'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="bg-[#DEF6FB]">
+    <!-- Navigation -->
+    <nav class="bg-white/80 h-[100px] flex items-center sticky top-0 z-50 backdrop-blur-sm">
+        <div class="max-w-container mx-auto px-5 w-full">
+            <div class="flex justify-between items-center">
+                <div class="flex gap-[50px]">
+                    <a href="{% url 'lost_persons_logged_in' %}" class="text-primary hover:opacity-80">Lost Persons</a>
+                    <a href="{% url 'found_persons_logged_in' %}" class="text-primary hover:opacity-80">Found Persons</a>
+                </div>
+                <div class="flex items-center gap-4">
+                    <a href="{% url 'user_profile' %}" class="text-primary hover:opacity-80">
+                        <img src="{% static 'images/avatar.png' %}" alt="User Avatar" class="w-10 h-10 rounded-full">
+                    </a>
+                    <a href="{% url 'index' %}" class="bg-accent text-white py-2 px-4 rounded-lg">Log Out</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="lost-hero-section bg-cover bg-center" style="background-image: url('./images/hold.png');">
+        <div class="max-w-container mx-auto px-5 pt-16 pb-32">
+            <div class="glass">
+                <h1 class="text-5xl font-bold mb-6 text-primary">Found Persons</h1>
+                <p class="text-lg text-black">These are people who have been reported found but no one has reported<br> them lost in our database.</p><br>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="lost-cta-section text-center py-16">
+        <p class="cta-text">Have you found someone you believe is lost? Please report to the nearest police station and also file a report with us below so we can help find them.</p><br>
+        <a href="{% url 'login' %}" class="lost-check-button bg-accent text-white py-3 px-6 rounded-lg block text-center mx-auto max-w-md">Check their face using facial recognition</a>
+    </section>
+
+    <!-- Found Person Cards Section -->
+    <section class="lost-person-section py-16">
+        <div class="max-w-container mx-auto px-5 grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Found Person Card -->
+            <div class="lost-person-card bg-white rounded-lg shadow-lg p-6 flex">
+                <div class="lost-person-image flex-shrink-0">
+                    <img src="{% static 'images/man.jpg' %}" alt="Baraka Mvule Mwai" class="w-32 h-32 rounded-full object-cover">
+                </div>
+                <div class="lost-person-details ml-4">
+                    <div class="lost-detail-item">
+                        <span class="icon">👤</span>
+                        <span class="label">Full Name:</span>
+                        <span class="value">Baraka Mvule Mwai</span>
+                    </div>
+                    <div class="lost-detail-item">
+                        <span class="icon">📍</span>
+                        <span class="label">Last Seen Location:</span>
+                        <span class="value">Kamulu</span>
+                    </div>
+                    <div class="lost-detail-item">
+                        <span class="icon">👮</span>
+                        <span class="label">Police Station Reported:</span>
+                        <span class="value">Kamulu Police Station</span>
+                    </div>
+                    <div class="lost-detail-item">
+                        <span class="icon">📝</span>
+                        <span class="label">Police O.B Number:</span>
+                        <span class="value">2452/948/98</span>
+                    </div>
+                    <div class="lost-detail-item">
+                        <span class="icon">📞</span>
+                        <span class="label">Relatives' Contact:</span>
+                        <span class="value">0711223344</span>
+                    </div>
+                    <div class="lost-detail-item">
+                        <span class="icon">📅</span>
+                        <span class="label">Date Found:</span>
+                        <span class="value">3/11/2024</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Second Found Person Card -->
+            <div class="lost-person-card bg-white rounded-lg shadow-lg p-6 flex">
+                <div class="lost-person-image flex-shrink-0">
+                    <img src="{% static 'images/girl.jpg' %}" alt="Annelisa Njeri Kamau" class="w-32 h-32 rounded-full object-cover">
+                </div>
+                <div class="lost-person-details ml-4">
+                    <div class="lost-detail-item">
+                        <span class="icon">👤</span>
+                        <span class="label">Full Name:</span>
+                        <span class="value">Annelisa Njeri Kamau</span>
+                    </div>
+                    <div class="lost-detail-item">
+                        <span class="icon">📍</span>
+                        <span class="label">Last Seen Location:</span>
+                        <span class="value">Kamulu</span>
+                    </div>
+                    <div class="lost-detail-item">
+                        <span class="icon">👮</span>
+                        <span class="label">Police Station Reported:</span>
+                        <span class="value">Kamulu Police Station</span>
+                    </div>
+                    <div class="lost-detail-item">
+                        <span class="icon">📝</span>
+                        <span class="label">Police O.B Number:</span>
+                        <span class="value">2452/948/98</span>
+                    </div>
+                    <div class="lost-detail-item">
+                        <span class="icon">📞</span>
+                        <span class="label">Relatives' Contact:</span>
+                        <span class="value">0711223344</span>
+                    </div>
+                    <div class="lost-detail-item">
+                        <span class="icon">📅</span>
+                        <span class="label">Date Found:</span>
+                        <span class="value">3/11/2024</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html> 

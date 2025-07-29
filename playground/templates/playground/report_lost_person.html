@@ -1,0 +1,158 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Lost Person | Find The Missing</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#784FB1',
+                        accent: '#FC7F15',
+                        grey: '#F0F0F0', // Added grey color for background
+                    },
+                    maxWidth: {
+                        'container': '1296px'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #DEF6FB;
+            margin: 0; /* Remove default margin */
+        }
+        .form-container {
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px; /* Increased width for the form */
+            position: relative;
+            margin: 100px auto; /* Center the form with margin */
+        }
+        .header {
+            background: #A7D3E0; /* Light blue background */
+            padding: 20px;
+            border-radius: 10px 10px 0 0;
+            text-align: center;
+            width: 100%; /* Full width for header */
+            margin-bottom: 20px; /* Space below the header */
+        }
+        .header h1 {
+            color: #6A5ACD; /* Purple color */
+            font-size: 24px;
+            margin: 0;
+        }
+        .warning {
+            color: red;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input[type="text"],
+        .form-group input[type="number"],
+        .form-group input[type="file"],
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-group input[type="radio"] {
+            margin-right: 5px;
+        }
+        .submit-button {
+            background-color: #FC7F15; /* Accent color */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            transition: background-image 0.3s ease; /* Smooth transition */
+        }
+        .submit-button:hover {
+            background-image: linear-gradient(to right, #FC7F15, #924CEE); /* Gradient from left to right */
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="bg-white/80 h-[100px] flex items-center sticky top-0 z-50 backdrop-blur-sm w-full">
+        <div class="max-w-container mx-auto px-5 w-full">
+            <div class="flex justify-between items-center">
+                <div class="flex gap-[50px]">
+                    <a href="{% url 'lost_persons_logged_in' %}" class="text-primary hover:opacity-80">Lost Persons</a>
+                    <a href="{% url 'found_persons_logged_in' %}" class="text-primary hover:opacity-80">Found Persons</a>
+                </div>
+                <div class="flex items-center gap-4">
+                    <a href="{% url 'user_profile' %}" class="text-primary hover:opacity-80">
+                        <img src="{% static 'images/avatar.png' %}" alt="User Avatar" class="w-10 h-10 rounded-full">
+                    </a>
+                    <a href="{% url 'index' %}" class="bg-accent text-white py-2 px-4 rounded-lg">Log Out</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Report Lost Person Form -->
+    <div class="form-container">
+        <div class="header">
+            <h1>Report Lost Person</h1>
+        </div>
+        <p class="warning">⚠️ Please ensure that you have reported to the police and obtained an O.B number</p>
+        <form>
+            <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" name="fullName" required>
+            </div>
+            <div class="form-group">
+                <label for="lastSeenLocation">Last Seen Location</label>
+                <input type="text" id="lastSeenLocation" name="lastSeenLocation" required>
+            </div>
+            <div class="form-group">
+                <label for="age">Age</label>
+                <input type="number" id="age" name="age" required>
+            </div>
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <select id="gender" name="gender" required>
+                    <option value="">Select</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>                
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="policeObNumber">Police O.B Number</label>
+                <input type="text" id="policeObNumber" name="policeObNumber" required>
+            </div>
+            <div class="form-group">
+                <label>Any Disability? (Yes or No)</label>
+                <label><input type="radio" name="disability" value="yes"> Yes</label>
+                <label><input type="radio" name="disability" value="no"> No</label>
+                <label for="disabilityDetails">If Yes, which one?</label>
+                <input type="text" id="disabilityDetails" name="disabilityDetails">
+            </div>
+            <div class="form-group">
+                <label for="imageUpload">Upload an image with their face</label>
+                <input type="file" id="imageUpload" name="imageUpload" accept="image/*" required>
+            </div>
+            <button type="submit" class="submit-button">Submit Missing Person Report</button>
+        </form>
+    </div>
+</body>
+</html> 

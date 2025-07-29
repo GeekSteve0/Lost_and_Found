@@ -1,0 +1,155 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find My People</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#784FB1',
+                        accent: '#FC7F15',
+                    },
+                    maxWidth: {
+                        'container': '1296px'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-[#F4F4F4]">
+    <!-- Navigation -->
+    <nav class="bg-white/80 h-[100px] flex items-center sticky top-0 z-50 backdrop-blur-sm">
+        <div class="max-w-container mx-auto px-5 w-full">
+            <div class="flex justify-between items-center">
+                <div class="flex gap-[50px]">
+                    <a href="{% url 'index' %}" class="text-primary hover:opacity-80">Home</a>
+                    <a href="{% url 'lost_person_logged_out' %}" class="text-primary hover:opacity-80">Lost Persons</a>
+                    <a href="{% url 'found_persons_logged_out' %}" class="text-primary hover:opacity-80">Found Persons</a>
+                </div>
+                <div class="flex gap-[30px]">
+                    <a href="{% url 'signup' %}" class="px-5 py-2 rounded-lg border border-accent bg-accent/50 text-white">Sign up</a>
+                    <a href="{% url 'login' %}" class="px-5 py-2 rounded-lg border border-accent bg-accent text-white">Log in</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Overlapping Cards -->
+    <section class="relative">
+        <!-- Hero Content -->
+        <div class="bg-gradient-to-b from-[#CAF0F8] from-5% via-[#CAF0F8] via-80% to-[#FFFFFF] pt-16 pb-32">
+            <div class="max-w-container mx-auto px-5">
+                <div class="flex items-end justify-between">
+                    <div class="max-w-[800px] mb-12">
+                        <h1 class="text-5xl font-bold mb-[50px] text-primary leading-[1.3]">Locate loved ones or reunite<br>strangers using facial recognition</h1>
+                        <p class="text-4x1 font-semibold text-black">Upload images of people who are either lost or people you have found and help them find their families.</p>
+                    </div>
+                    <div class="flex-shrink-0">
+                        <img src="{% static 'playground/images/Landingfinal1.png' %}" alt="Hero" class="w-[500px]">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Overlapping Cards -->
+        <div class="max-w-container mx-auto px-5">
+            <div class="grid grid-cols-3 gap-8 -mt-24 relative z-10"> <!-- Negative margin to create overlap -->
+                <!-- Lost Persons Card -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg">
+                    <img src="{% static 'playground/images/forest.png' %}" alt="Lost Persons" class="w-full h-[200px] object-cover">
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-6">Help find people who are lost from their families by uploading an image and minor identification details.</p>
+                        <button class="w-full bg-accent text-white py-3 rounded-lg hover:bg-accent/90">Report Lost Person</button>
+                    </div>
+                </div>
+
+                <!-- Statistics Card -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg">
+                    <img src="{% static 'playground/images/stats.png' %}" alt="Statistics" class="w-full h-[200px] object-cover">
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-6">Discover the magnitude of impact felt by families of people who have interacted with the platform, even if it's once.</p>
+                        <button class="w-full bg-accent text-white py-3 rounded-lg hover:bg-accent/90">View Statistics</button>
+                    </div>
+                </div>
+
+                <!-- Found Persons Card -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg">
+                    <img src="{% static 'playground/images/hold.png' %}" alt="Found Persons" class="w-full h-[200px] object-cover">
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-6">Help connect people you have found with their loved ones through uploading an image of their face.</p>
+                        <button class="w-full bg-accent text-white py-3 rounded-lg hover:bg-accent/90">Report Found Person</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Add some spacing after the cards -->
+    <div class="h-16"></div>
+
+    <!-- Statistics Section -->
+    <section class="bg-white py-16">
+        <div class="max-w-container mx-auto px-5">
+            <div class="grid grid-cols-3 gap-8">
+                <!-- Lost Reports Stats -->
+                <div class="bg-white rounded-lg p-6 shadow-sm text-center">
+                    <h3 class="text-xl font-semibold mb-4">People Reported Lost</h3>
+                    <div class="text-4xl text-primary font-bold mb-2">584</div>
+                    <p class="text-gray-600 mb-4">Since Jan 2024</p>
+                    <div class="inline-flex items-center text-green-600 bg-gray-100 px-4 py-2 rounded-lg">
+                        <span class="mr-2">↑</span>
+                        5.6% more than last year
+                    </div>
+                </div>
+
+                <!-- Found Reports Stats -->
+                <div class="bg-white rounded-lg p-6 shadow-sm text-center">
+                    <h3 class="text-xl font-semibold mb-4">People Found</h3>
+                    <div class="text-4xl text-primary font-bold mb-2">316</div>
+                    <p class="text-gray-600 mb-4">Since Jan 2024</p>
+                    <div class="inline-flex items-center text-red-600 bg-gray-100 px-4 py-2 rounded-lg">
+                        <span class="mr-2">↓</span>
+                        3.2% less than last year
+                    </div>
+                </div>
+
+                <!-- Total Cases Stats -->
+                <div class="bg-white rounded-lg p-6 shadow-sm text-center">
+                    <h3 class="text-xl font-semibold mb-4">All Cases Handled</h3>
+                    <div class="text-4xl text-primary font-bold mb-2">900</div>
+                    <p class="text-gray-600 mb-4">Since Jan 2024</p>
+                    <div class="inline-flex items-center text-red-600 bg-gray-100 px-4 py-2 rounded-lg">
+                        <span class="mr-2">↓</span>
+                        2.1% less than last year
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#000B1C] text-white py-16">
+        <div class="max-w-container mx-auto px-5">
+            <div class="grid grid-cols-3 gap-8">
+                <div class="space-y-4">
+                    <a href="{% url 'index' %}" class="block hover:text-accent">Home</a>
+                    <a href="{% url 'signup' %}" class="block hover:text-accent">Sign Up</a>
+                </div>
+                <div class="space-y-4 text-center">
+                    <a href="{% url 'lost_person_logged_out' %}" class="block hover:text-accent">Lost Persons</a>
+                </div>
+                <div class="space-y-4 text-right">
+                    <a href="{% url 'found_persons_logged_out' %}" class="block hover:text-accent">Found Persons</a>
+                    <a href="{% url 'login' %}" class="block hover:text-accent">Log in</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

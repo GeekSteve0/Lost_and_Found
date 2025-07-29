@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Find The Missing</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#784FB1',
+                        accent: '#FC7F15',
+                    },
+                    maxWidth: {
+                        'container': '1296px'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: linear-gradient(to right, #A7A9D9, #E0E0E0);
+            height: 100vh; /* Full height for centering */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .form-container {
+            background: linear-gradient(to bottom, #ffffff, #999999); /* Gradient background */
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%; /* Full width for responsiveness */
+        }
+    </style>
+</head>
+<body>
+   
+
+    <!-- Login Form Section -->
+    <div class="form-container">
+        <h1 class="text-3xl font-bold text-center text-primary mb-6">Login</h1>
+        {% if messages %}
+            <ul class="mb-4">
+                {% for message in messages %}
+                    <li class="text-red-500 text-center">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-4">
+                <label for="email" class="block text-gray-700">Email</label>
+                {{ form.email|as_widget:attrs }}
+                {% if form.email.errors %}
+                    <span class="text-red-500">{{ form.email.errors.0 }}</span>
+                {% endif %}
+            </div>
+            <div class="mb-4">
+                <label for="password" class="block text-gray-700">Password</label>
+                {{ form.password|as_widget:attrs }}
+                {% if form.password.errors %}
+                    <span class="text-red-500">{{ form.password.errors.0 }}</span>
+                {% endif %}
+            </div>
+            <button type="submit" class="bg-accent text-white py-2 px-4 rounded-lg w-full">Login</button>
+            <p class="text-center mt-4"><a href="#" class="text-orange-500">Forgot Password?</a></p>
+        </form>
+        <p class="text-center mt-4">Don't have an account? <a href="{% url 'signup' %}" class="text-[#0000FF]">Sign up</a></p>
+    </div>
+</body>
+</html>

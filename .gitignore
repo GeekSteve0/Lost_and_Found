@@ -1,0 +1,31 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django-specific
+*.log
+
+# Virtual environment
+venv/
+ENV/
+env/
+.venv/
+
+# VS Code settings
+.vscode/
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Migrations (optional – uncomment if you want to ignore them)
+# playground/migrations/
+# */migrations/
+
+# Static and media files (optional – uncomment if you generate them dynamically)
+# staticfiles/
+# media/
+
+# Backup or dump files
+*.json
