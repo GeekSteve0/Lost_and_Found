@@ -90,7 +90,7 @@ def found_person_profile(request, person_id=None):
     if person_id:
         found_person = get_object_or_404(FoundPerson, id=person_id)
         # Get the match if this person was previously reported as lost
-        match = Match.objects.filter(found_person=found_person, is_confirmed=True).first()
+        match = Match.objects.filter(found_person=found_person, match_percentage__gte=70.0).first()
         return render(request, 'playground/found_person_profile.html', {
             'person': found_person,
             'match': match

@@ -63,88 +63,64 @@
     <!-- CTA Section -->
     <section class="lost-cta-section text-center py-16">
         <p class="cta-text">Have you found someone you believe is lost? Please report to the nearest police station and also file a report with us below so we can help find them.</p><br>
-        <a href="{% url 'login' %}" class="lost-check-button bg-accent text-white py-3 px-6 rounded-lg block text-center mx-auto max-w-md">Check their face using facial recognition</a>
+        <a href="{% url 'report_found_person' %}" class="lost-check-button bg-accent text-white py-3 px-6 rounded-lg block text-center mx-auto max-w-md">Report a found person</a>
     </section>
 
     <!-- Found Person Cards Section -->
     <section class="lost-person-section py-16">
         <div class="max-w-container mx-auto px-5 grid grid-cols-1 md:grid-cols-2 gap-8">
-            <!-- Found Person Card -->
-            <div class="lost-person-card bg-white rounded-lg shadow-lg p-6 flex">
-                <div class="lost-person-image flex-shrink-0">
-                    <img src="{% static 'images/man.jpg' %}" alt="Baraka Mvule Mwai" class="w-32 h-32 rounded-full object-cover">
+            {% if found_persons %}
+                {% for person in found_persons %}
+                    <!-- Found Person Card -->
+                    <div class="lost-person-card bg-white rounded-lg shadow-lg p-6 flex">
+                        <div class="lost-person-image flex-shrink-0">
+                            <img src="{{ person.photo.url }}" alt="{{ person.full_name|default:'Unknown Person' }}" class="w-32 h-32 rounded-full object-cover">
+                        </div>
+                        <div class="lost-person-details ml-4">
+                            <div class="lost-detail-item">
+                                <span class="icon">👤</span>
+                                <span class="label">Full Name:</span>
+                                <span class="value">{{ person.full_name|default:'Unknown Person' }}</span>
+                            </div>
+                            <div class="lost-detail-item">
+                                <span class="icon">📍</span>
+                                <span class="label">Location Found:</span>
+                                <span class="value">{{ person.location|default:'Location not provided' }}</span>
+                            </div>
+                            {% if person.police_station %}
+                            <div class="lost-detail-item">
+                                <span class="icon">�</span>
+                                <span class="label">Police Station Reported:</span>
+                                <span class="value">{{ person.police_station }}</span>
+                            </div>
+                            {% endif %}
+                            {% if person.ob_number %}
+                            <div class="lost-detail-item">
+                                <span class="icon">�</span>
+                                <span class="label">Police O.B Number:</span>
+                                <span class="value">{{ person.ob_number }}</span>
+                            </div>
+                            {% endif %}
+                            {% if person.contact_phone %}
+                            <div class="lost-detail-item">
+                                <span class="icon">�</span>
+                                <span class="label">Contact:</span>
+                                <span class="value">{{ person.contact_phone }}</span>
+                            </div>
+                            {% endif %}
+                            <div class="lost-detail-item">
+                                <span class="icon">�</span>
+                                <span class="label">Date Found:</span>
+                                <span class="value">{{ person.date_reported|date:"d/m/Y" }}</span>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-span-2 text-center py-8">
+                    <p class="text-lg text-gray-600">No found persons have been reported yet.</p>
                 </div>
-                <div class="lost-person-details ml-4">
-                    <div class="lost-detail-item">
-                        <span class="icon">👤</span>
-                        <span class="label">Full Name:</span>
-                        <span class="value">Baraka Mvule Mwai</span>
-                    </div>
-                    <div class="lost-detail-item">
-                        <span class="icon">📍</span>
-                        <span class="label">Last Seen Location:</span>
-                        <span class="value">Kamulu</span>
-                    </div>
-                    <div class="lost-detail-item">
-                        <span class="icon">👮</span>
-                        <span class="label">Police Station Reported:</span>
-                        <span class="value">Kamulu Police Station</span>
-                    </div>
-                    <div class="lost-detail-item">
-                        <span class="icon">📝</span>
-                        <span class="label">Police O.B Number:</span>
-                        <span class="value">2452/948/98</span>
-                    </div>
-                    <div class="lost-detail-item">
-                        <span class="icon">📞</span>
-                        <span class="label">Relatives' Contact:</span>
-                        <span class="value">0711223344</span>
-                    </div>
-                    <div class="lost-detail-item">
-                        <span class="icon">📅</span>
-                        <span class="label">Date Found:</span>
-                        <span class="value">3/11/2024</span>
-                    </div>
-                </div>
-            </div>
-            <!-- Second Found Person Card -->
-            <div class="lost-person-card bg-white rounded-lg shadow-lg p-6 flex">
-                <div class="lost-person-image flex-shrink-0">
-                    <img src="{% static 'images/girl.jpg' %}" alt="Annelisa Njeri Kamau" class="w-32 h-32 rounded-full object-cover">
-                </div>
-                <div class="lost-person-details ml-4">
-                    <div class="lost-detail-item">
-                        <span class="icon">👤</span>
-                        <span class="label">Full Name:</span>
-                        <span class="value">Annelisa Njeri Kamau</span>
-                    </div>
-                    <div class="lost-detail-item">
-                        <span class="icon">📍</span>
-                        <span class="label">Last Seen Location:</span>
-                        <span class="value">Kamulu</span>
-                    </div>
-                    <div class="lost-detail-item">
-                        <span class="icon">👮</span>
-                        <span class="label">Police Station Reported:</span>
-                        <span class="value">Kamulu Police Station</span>
-                    </div>
-                    <div class="lost-detail-item">
-                        <span class="icon">📝</span>
-                        <span class="label">Police O.B Number:</span>
-                        <span class="value">2452/948/98</span>
-                    </div>
-                    <div class="lost-detail-item">
-                        <span class="icon">📞</span>
-                        <span class="label">Relatives' Contact:</span>
-                        <span class="value">0711223344</span>
-                    </div>
-                    <div class="lost-detail-item">
-                        <span class="icon">📅</span>
-                        <span class="label">Date Found:</span>
-                        <span class="value">3/11/2024</span>
-                    </div>
-                </div>
-            </div>
+            {% endif %}
         </div>
     </section>
 </body>
