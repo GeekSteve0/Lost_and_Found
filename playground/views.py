@@ -83,8 +83,16 @@ def found_persons_logged_out(request):
     found_persons = FoundPerson.objects.all().order_by('-date_reported')  # Most recent first
     return render(request, 'playground/found_persons_logged_out.html', {'found_persons': found_persons})
 
-def lost_person_profile(request):
-    return render(request, 'playground/lost_person_profile.html')
+def lost_person_profile(request, person_id=None):
+    if person_id:
+        lost_person = get_object_or_404(LostPerson, id=person_id)
+        # Get the match if this person was previously found
+        match = Match.objects.filter(lost_person=lost_person, match_percentage__gte=70).first()
+        return render(request, 'playground/lost_person_profile.html', {
+            'person': lost_person,
+            'match': match
+        })
+    return redirect('lost_persons_logged_out')
 
 def found_person_profile(request, person_id=None):
     if person_id:
@@ -126,12 +134,17 @@ def detect_faces(image_path):
         print(f"Error detecting faces: {e}")
         return False, None
 
-def find_matching_faces(encoding, threshold=0.7):
-    # Search for matches among unresolved lost persons
-    lost_persons = LostPerson.objects.filter(is_resolved=False)
+def find_matching_faces(encoding, threshold=0.7, search_found=False):
     matches = []
     
-    for person in lost_persons:
+    if search_found:
+        # Search for matches among found persons
+        persons_to_check = FoundPerson.objects.all()
+    else:
+        # Search for matches among unresolved lost persons
+        persons_to_check = LostPerson.objects.filter(is_resolved=False)
+    
+    for person in persons_to_check:
         try:
             if person.face_encoding:
                 # Convert stored encoding from bytes back to numpy array
@@ -226,23 +239,30 @@ def report_lost_person(request):
                 print("Error creating LostPerson record:", str(db_error))
                 raise
 
-            # Search for matches
-            potential_matches = find_matching_faces(face_encoding)
+            # Search for matches among found persons
+            potential_matches = find_matching_faces(face_encoding, search_found=True)
             
             # Create matches with high confidence
             for found_person, confidence in potential_matches:
                 if confidence >= 70:  # Auto-confirm matches above 70% confidence
-                    Match.objects.create(
+                    match = Match.objects.create(
                         lost_person=lost_person,
                         found_person=found_person,
-                        confidence=confidence,
-                        is_confirmed=True
+                        match_percentage=confidence
                     )
+                    
+                    # Clean up temp file
+                    os.remove(full_temp_path)
+                    
+                    # Redirect to profile page if match found with success message
+                    messages.success(request, f'Report submitted successfully. Match found! This person was previously reported found. Confidence: {confidence:.1f}%')
+                    return redirect('lost_person_profile', person_id=lost_person.id)
 
             # Clean up temp file
             os.remove(full_temp_path)
 
-            messages.success(request, 'Report submitted successfully.')
+            # No match found - redirect to lost persons page with success message
+            messages.success(request, 'Lost person report submitted successfully. No matches found at this time.')
             return redirect('lost_persons_logged_in')
 
         except ValidationError as e:
@@ -315,7 +335,7 @@ def report_found_person(request):
 
             # Search for potential matches among lost persons
             if face_encoding is not None:
-                potential_matches = find_matching_faces(face_encoding)
+                potential_matches = find_matching_faces(face_encoding, search_found=False)
                 high_confidence_matches = [(lost, conf) for lost, conf in potential_matches if conf >= 70]
                 
                 if high_confidence_matches:
@@ -336,15 +356,17 @@ def report_found_person(request):
                     # Clean up temp file
                     os.remove(full_temp_path)
                     
+                    # Redirect to profile page with success message about match
                     messages.success(request, 
-                        f'Match found! This person was reported missing. Confidence: {confidence:.1f}%')
+                        f'Report submitted successfully. Match found! This person was reported missing. Confidence: {confidence:.1f}%')
                     return redirect('found_person_profile', person_id=found_person.id)
             
             # If no matches found or no face encoding, just save as a new found person
             # Clean up temp file
             os.remove(full_temp_path)
             
-            messages.success(request, 'Found person report submitted successfully.')
+            # No match found - redirect to found persons page with success message
+            messages.success(request, 'Found person report submitted successfully. No matches found at this time.')
             return redirect('found_persons_logged_in')
 
         except ValidationError as e:
